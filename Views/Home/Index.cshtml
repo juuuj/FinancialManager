@@ -1,0 +1,125 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Gestão Financeira</title>
+    <link rel="stylesheet" href="~/CSS/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/CSS/materialize.css" rel="stylesheet" type="text/css" />
+    <link href="~/CSS/materialize.min.css" rel="stylesheet" type="text/css" />
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="~/JS/materialize.js"></script>
+    <script src="~/JS/materialize.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Problemas com Gestão"
+                },
+                axisY: {
+                    title: "Número de Empresas com Problemas (milhões)",
+                    lineColor: "#4F81BC",
+                    tickColor: "#4F81BC",
+                    labelFontColor: "#4F81BC"
+                },
+                axisY2: {
+                    title: "Porcentagem",
+                    suffix: "%",
+                    lineColor: "#C0504E",
+                    tickColor: "#C0504E",
+                    labelFontColor: "#C0504E"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: [
+                        { label: "Falta de Organização", y: 16.6 },
+                        { label: "Falta de Planejamento", y: 14.4 },
+                        { label: "Atraso no pagamento de Salários", y: 13.9 },
+                        { label: "Perda de Prazos", y: 9.7 },
+                        { label: "Contas Esquecidas", y: 7.3 },
+                        { label: "Agenda 'Caótica'", y: 5.2 }
+                    ]
+                }]
+            });
+            chart.render();
+            createPareto();
+
+            function createPareto() {
+                var dps = [];
+                var yValue, yTotal = 0, yPercent = 0;
+
+                for (var i = 0; i < chart.data[0].dataPoints.length; i++)
+                    yTotal += chart.data[0].dataPoints[i].y;
+
+                for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
+                    yValue = chart.data[0].dataPoints[i].y;
+                    yPercent += (yValue / yTotal * 100);
+                    dps.push({ label: chart.data[0].dataPoints[i].label, y: yPercent });
+                }
+
+                chart.addTo("data", { type: "line", yValueFormatString: "0.##\"%\"", dataPoints: dps });
+                chart.data[1].set("axisYType", "secondary", false);
+                chart.axisY[0].set("maximum", yTotal);
+                chart.axisY2[0].set("maximum", 100);
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper  blue lighten-3">
+            <a href="" class="brand-logo">JuPak Gestões</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/Home">Home</a></li>
+                <li><a href="/Empresa/Contato">Contato</a></li>
+                <li><a href="/Login">Login</a></li>
+                <li><a href="/Empresa/Form">Cadastro</a></li>
+                <li><a href="/Empresa/Bastidores">Bastidores</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+        <center>
+            <br />
+            <div id="chartContainer" style="height: 370px; width: 80%;"></div>
+            <br />
+        </center>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <br><br>
+    <footer class="page-footer blue lighten-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Gestão Financeira</h5>
+                    <p class="grey-text text-lighten-4"> O melhor site para você ter um bom planejamento sobre sua Empresa </p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Páginas</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="/Home">Home</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Empresa/Contato">Contato</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Login">Login</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Empresa/Form">Cadastro</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Empresa/Bastidores">Bastidores</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Copyright Text
+                <a class="grey-text text-lighten-4 right" href="http://www.pe.senai.br/cursos/detalhe/unidade/144/#.XPUcHRZKiM8">Mais...</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

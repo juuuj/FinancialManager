@@ -1,0 +1,128 @@
+﻿
+@{
+    Layout = null;
+    int x = 1;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cadastro de Funcionário</title>
+    <link rel="stylesheet" href="~/CSS/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/CSS/materialize.css" rel="stylesheet" type="text/css" />
+    <link href="~/CSS/materialize.min.css" rel="stylesheet" type="text/css" />
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="~/JS/materialize.js"></script>
+    <script src="~/JS/materialize.min.js"></script>
+    <script type="text/javascript">
+        $(".dropdown-trigger").dropdown();
+
+        $(document).ready(function () {
+            $('select').formSelect();
+    </script>
+    <style>
+        .frmFuncionarios {
+            margin-left: 580px;
+            background-color: #e1f5fe;
+            border-radius: 30px;
+            height: 500px;
+            width: 500px;
+            position: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <nav>
+            <div class="nav-wrapper  blue lighten-3">
+                <a href="#!" class="brand-logo">JuPak Gestões</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/Conta/Index">Situação</a></li>
+                    <li><a href="/Conta/Form">Conta</a></li>
+                    <li><a href="/Funcionario/Form">Funcionário</a></li>
+                    <li><a href="/Login/Sair">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
+        <br><br>
+        <div class="frmFuncionarios">
+            <div class="row">
+                <form class="col s12" action="/Funcionario/Adiciona">
+                    <div class="row">
+                        <center><h4>Funcionários</h4></center>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select class="browser-default blue lighten-5" name="idBeneficio">
+                                <option value="" disabled selected>Benefícios</option>
+                                @foreach (var bnf in ViewBag.Beneficio)
+                                {
+                                    <option value="@bnf.Id"> @bnf.NomeBeneficio | @bnf.ValorBeneficio.ToString("0.00") </option>
+                                    x++;
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="" name="fnc.NomeFuncionario" type="text" class="validate" required>
+                            <label for="valor">Nome do Funcionário</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="dinheiro" type="number" min="1" step="any" name="fnc.Salario" class="validate" required>
+                            <label for="valor">Valor do Salário</label>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light  blue darken-3" type="submit" name="action">
+                                Enviar
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+        <div>
+        </div>
+        <br><br>
+        <footer class="page-footer blue lighten-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Gestão Financeira</h5>
+                        <p class="grey-text text-lighten-4"> O melhor site para você ter controle de suas contas empresariais </p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Páginas</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="/Conta/Index">Situação</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Conta/Form">Conta</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Funcionario/Form">Funcionário</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Empresa/Bastidores">Bastidores</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Login/Sair">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2019 Copyright Text
+                    <a class="grey-text text-lighten-4 right" href="#!">Mais...</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+   
+</body>
+</html>

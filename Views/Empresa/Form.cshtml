@@ -1,0 +1,128 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cadastro de Empresa</title>
+    <link rel="stylesheet" href="~/CSS/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/CSS/materialize.css" rel="stylesheet" type="text/css" />
+    <link href="~/CSS/materialize.min.css" rel="stylesheet" type="text/css" />
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="~/JS/materialize.js"></script>
+    <script src="~/JS/materialize.min.js"></script>
+    <script type="text/javascript">
+        $(".dropdown-trigger").dropdown();
+    </script>
+    <style>
+        .frmCadastro {
+            margin-left: 580px;
+            background-color: #e1f5fe;
+            border-radius: 30px;
+            height: 600px;
+            width: 500px;
+            position: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <br /><div>
+    <nav>
+        <div class="nav-wrapper  blue lighten-3">
+            <a href="#!" class="brand-logo">JuPak Gestões</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/Home">Home</a></li>
+                <li><a href="/Empresa/Contato">Contato</a></li>
+                <li><a href="/Login">Login</a></li>
+                <li><a href="/Empresa/Form">Cadastro</a></li>
+                <li><a href="/Empresa/Bastidores">Bastidores</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+    <div class="frmCadastro">
+        <div class="row">
+            <form class="col s12" action="/Empresa/Adiciona">
+                <div class="row">
+                    <center><h4>Cadastro de Empresa</h4></center>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="" name="emp.NomeEmpresa" type="text" class="validate" required>
+                        <label for="codConta">Nome da Empresa</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="" name="emp.Email" type="text" class="validate" required>
+                        <label for="valor">E-mail</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="icon_telephone" name="emp.Telefone" type="tel" class="validate" required>
+                        <label for="icon_telephone">Telefone</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="" name="emp.Senha" type="password" class="validate" required>
+                        <label for="valor">Senha</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="" name="emp.Saldo" type="number" min="1" step="any" class="validate" required />
+                        <label for="valor">Saldo</label>
+                    </div>
+                </div>
+                <center>
+                    <div class="input-field col s12">
+                        <button class="btn waves-effect waves-light  blue darken-3" type="submit" name="action">
+                            Cadastrar
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </center>
+            </form>
+        </div>
+    </div>
+    <div>
+    </div>
+    <br><br>
+    <footer class="page-footer blue lighten-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Gestão Financeira</h5>
+                    <p class="grey-text text-lighten-4"> O melhor site para você ter controle de suas contas empresariais </p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Páginas</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="/Home">Home</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Empresa/Contato">Contato</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Login">Login</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Empresa/Form">Cadastro</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Empresa/Bastidores">Bastidores</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Copyright Text
+                <a class="grey-text text-lighten-4 right" href="#!">Mais...</a>
+            </div>
+        </div>
+    </footer>
+</div>
+    
+</body>
+</html>

@@ -1,0 +1,292 @@
+﻿
+@{
+    Layout = null;
+    decimal pagar = 0;
+    decimal receber = 0;
+
+    var em = ViewBag.Empresa;
+    decimal saldo = em.Saldo;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Situação</title>
+    <link rel="stylesheet" href="~/CSS/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/CSS/materialize.css" rel="stylesheet" type="text/css" />
+    <link href="~/CSS/materialize.min.css" rel="stylesheet" type="text/css" />
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="~/JS/materialize.js"></script>
+    <script src="~/JS/materialize.min.js"></script>
+    <script type="text/javascript">
+        $(".dropdown-trigger").dropdown();
+    </script>
+    <style>
+        .frmPagar {
+            width: 650px;
+            background-color: #e1f5fe;
+            border-radius: 30px;
+            position: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 0px;
+        }
+
+        .frmFuncionario {
+            margin-left: 50px;
+            width: 650px;
+            background-color: #e1f5fe;
+            border-radius: 30px;
+            position: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .frmReceber {
+            margin-left: 50px;
+            width: 650px;
+            background-color: #e1f5fe;
+            border-radius: 30px;
+            position: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .sit {
+            position: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <nav>
+            <div class="nav-wrapper  blue lighten-3">
+                <a href="#!" class="brand-logo">JuPak Gestões</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/Conta/Index">Situação</a></li>
+                    <li><a href="/Conta/Form">Conta</a></li>
+                    <li><a href="/Funcionario/Form">Funcionário</a></li>
+                    <li><a href="/Login/Sair">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
+        <br><br>
+        <center><h3 class="sit">SITUAÇÃO</h3></center>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <form class="frmReceber" action="/Conta/RemoverConta">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> Conta a Receber</th>
+                                    <th> Prazo</th>
+                                    <th> Valor</th>
+                                    <th> Situação</th>
+                                    <th> Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cnt in ViewBag.Conta)
+                                {
+                                    if (cnt.IdEmpresa == ViewBag.Empresa.Id)
+                                    {
+                                        if (cnt.Tipo == 1)
+                                        {
+                                            var dateAndTime = DateTime.Now;
+                                            var date = dateAndTime.Date;
+                                            string rec = "  Recebido";
+
+                                            if (cnt.Prazo >= date)
+                                            {
+                                                if (cnt.Situacao == 1)
+                                                {
+                                                    <tr>
+                                                        <td ><input type="hidden" name="cnt" value="@cnt.NomeConta" />@cnt.NomeConta</td>
+                                                        <td>@cnt.Prazo.ToString().Substring(0, 10)</td>
+                                                        <td>R$@cnt.ValorConta.ToString("0.00")</td>
+                                                        <td>  @rec</td>
+                                                        <td>
+                                                            <input type="submit" id="btnE1" class="btn waves-effect waves-light  blue darken-3" value="Excluir">
+                                                        </td>
+                                                    </tr>
+                                                    receber += cnt.ValorConta;
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td> <input type="hidden" name="cnt" value="@cnt.NomeConta" />@cnt.NomeConta</td>
+                                                        <td>@cnt.Prazo.ToString().Substring(0, 10)</td>
+                                                        <td>R$@cnt.ValorConta.ToString("0.00")</td>
+                                                        <td>
+                                                            <input type="submit" id="btnP1" class="btn waves-effect waves-light  blue darken-3" href="/Conta/Atualizar" value="Receber">
+                                                        </td>
+                                                        <td>
+                                                            <input type="submit" id="btnE2" class="btn waves-effect waves-light  blue darken-3"  value="Excluir">
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+                </td>
+                <td>
+                    <form class="frmPagar" action="/Conta/RemoverConta">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> Conta a Pagar</th>
+                                    <th> Prazo</th>
+                                    <th> Valor</th>
+                                    <th> Situação</th>
+                                    <th> Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cnt in ViewBag.Conta)
+                                {
+                                    if (cnt.IdEmpresa == ViewBag.Empresa.Id)
+                                    {
+                                        if (cnt.Tipo == 0)
+                                        {
+                                            var dateAndTime = DateTime.Now;
+                                            var date = dateAndTime.Date;
+
+                                            string pago = "  Pago";
+
+                                            if (cnt.Prazo >= date)
+                                            {
+                                                if (cnt.Situacao == 1)
+                                                {
+                                                    <tr>
+                                                        <td><input type="hidden" name="cnt" value="@cnt.NomeConta" />@cnt.NomeConta</td>
+                                                        <td>@cnt.Prazo.ToString().Substring(0, 10)</td>
+                                                        <td>R$@cnt.ValorConta.ToString("0.00")</td>
+                                                        <td>  @pago</td>
+                                                        <td>
+                                                            <input type="submit" id="btnE3" class="btn waves-effect waves-light  blue darken-3" value="Excluir">
+                                                        </td>
+                                                    </tr>
+                                                    pagar += cnt.ValorConta;
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td><input type="hidden" name="cnt" value="@cnt.NomeConta" />@cnt.NomeConta</td>
+                                                        <td>@cnt.Prazo.ToString().Substring(0, 10)</td>
+                                                        <td>R$@cnt.ValorConta.ToString("0.00")</td>
+                                                        <td>
+                                                            <input type="submit" id="btnP2" class="btn waves-effect waves-light  blue darken-3" href="/Conta/Atualizar" value="Pagar">
+                                                        </td>
+                                                        <td>
+                                                            <input type="submit" id="btnE4" class="btn waves-effect waves-light  blue darken-3" value="Excluir">
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form class="frmFuncionario" action="/Conta/RemoverFuncionario">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> Funcionário</th>
+                                    <th> Salário</th>
+                                    <th> Benefícios</th>
+                                    <th> Demitir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var fnc in ViewBag.Funcionario)
+                                {
+                                    int aux = ViewBag.Empresa.Id;
+                                    int idB = fnc.IdBeneficio;
+
+                                    if (fnc.IdEmpresa == aux)
+                                    {
+                                        <tr>
+                                            <td><input type="hidden" name="fnc" value="@fnc.NomeFuncionario"/>@fnc.NomeFuncionario</td>
+                                            <td>R$@fnc.Salario.ToString("0.00")</td>
+                                            @foreach (var bnf in ViewBag.Beneficio)
+                                            {
+                                                if (bnf.Id == idB)
+                                                {
+                                                    <td>R$@bnf.ValorBeneficio.ToString("0.00")</td>
+                                                    pagar += bnf.ValorBeneficio;
+                                                }
+                                            }
+                                            <td>
+                                                <input type="submit" id="btnPagar3" class="btn waves-effect waves-light  blue darken-3" value="Demitir">
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th class="center">Recebido: R$@receber.ToString("0.00")</th>
+                <th class="center">Pago: R$@pagar.ToString("0.00")</th>
+            </tr>
+            <tr>
+                <th class="center">
+                    Saldo: R$
+                    @{
+                        decimal final = saldo + receber - pagar;
+                    }
+                    @final.ToString("0.00")
+                </th>
+            </tr>
+        </table>
+        <div>
+        </div>
+        <br><br>
+        <footer class="page-footer blue lighten-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Gestão Financeira</h5>
+                        <p class="grey-text text-lighten-4"> O melhor site para você ter controle de suas contas empresariais </p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Páginas</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="/Conta/Index">Situação</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Conta/Form">Conta</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Funcionario/Form">Funcionário</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Empresa/Bastidores">Bastidores</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/Login/Sair">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2019 Copyright Text
+                    <a class="grey-text text-lighten-4 right" href="#!">Mais...</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
